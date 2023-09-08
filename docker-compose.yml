@@ -1,0 +1,18 @@
+version: "2.2"
+services:
+  travel-journal-ui:
+    container_name: travel-journal-ui
+    image: travel-journal-ui
+    build:
+      context: ../endava4students-ptd-23-ui/travel-journal-ui
+    network_mode: "host"
+
+  travel-journal-api:
+    container_name: travel-journal-api
+    image: travel-journal-api
+    build:
+      context: ./travel-journal-api
+    environment:
+        DB_PWD: ${DB_PWD}
+        DB_HOST: ${DB_HOST}
+    network_mode: "host"
