@@ -276,7 +276,7 @@ To confirm Node installation, type node -v command.
 
 To confirm NPM installation, type npm -v command.
 
-![NodeJSStep8](artefacts/NodeJS/NodeJS_8.PNG)
+![NodeJSStep8](artefacts/NodeJS/NodeJS_8.png)
 
 
 
