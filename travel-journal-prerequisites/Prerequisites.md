@@ -74,7 +74,7 @@ Create a folder named Maven in C:/Program Files/Maven and unzip the downloaded a
 # 4. Environment Variables
 Environment variables are variables in an operating system that store information used by programs and processes running on the system. They provide a way to pass configuration settings, system information, and other data to applications without hardcoding them into the program's code.
 
-In order to set your environment variables for java and maven press Windows and search for Environment Variables:
+In order to set your environment variables for Java and Maven press Windows and search for Environment Variables:
 
 ![EnvironmentVariablesStep1](artefacts/EnvironmentVariables/Environment_Variables_1.PNG)
 
@@ -165,7 +165,7 @@ In GitBash enter the following command:
 ```
 ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 ```
-where "your_email@example.com" should be the email on your HitHub account.
+where "your_email@example.com" should be the email on your GitHub account.
 
 ![GitSSHStep2](artefacts/Git/SetSSH/Git_SSH_2.PNG)
 
@@ -183,7 +183,7 @@ Open id_rsa.pub in Notepad++ and copy it's content:
 
 ![GitSSHStep5](artefacts/Git/SetSSH/Git_SSH_5.PNG)
 
-Go to your GitHub account in <a href="![img.png](img.png)">SSH and GpPG keys section</a> and press on New SSH key:
+Go to your GitHub account in <a href="![img.png](img.png)">SSH and GPG keys section</a> and press on New SSH key:
 
 ![GitSSHStep6](artefacts/Git/SetSSH/Git_SSH_6.PNG)
 
