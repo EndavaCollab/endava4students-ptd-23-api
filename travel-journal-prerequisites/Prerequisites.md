@@ -10,7 +10,7 @@
 * [6. PostgreSql](#postgresql)
 * [7. Postman](#postman)
 * [8. Node & NPM](#nodenpm)
-
+* [9. Clone UI project](#cloneui)
 
 
 <a name="intellij"></a>
@@ -196,7 +196,7 @@ Now you should have your SSH key set:
 ![GitSSHStep8](artefacts/Git/SetSSH/Git_SSH_8.PNG)
 
 <a name="postgresql"></a>
-# 7. PostgreSql
+# 6. PostgreSql
 PostgreSQL is a powerful open-source relational database management system (RDBMS) used for a wide range of applications.
 
 Download <a href="https://www.enterprisedb.com/downloads/postgres-postgresql-downloads">PostgreSql</a> and proceed with installation:
@@ -228,7 +228,7 @@ Do not change the port:
 ![PostgreSqlStep11](artefacts/PostgreSql/PostgreSql_11.PNG)
 
 <a name="postman"></a>
-# 6. Postman
+# 7. Postman
 Postman is used to simplify the process of building, testing, and documenting APIs. It provides a user-friendly interface for making API requests, inspecting responses, and managing API endpoints.
 
 Download <a href="https://www.postman.com/downloads/">Postman</a>:
@@ -244,7 +244,7 @@ Download <a href="https://www.postman.com/downloads/">Postman</a>:
 ![PostmanStep5](artefacts/Postman/Postman_5.PNG)
 
 <a name="nodenpm"></a>
-# 7. Node.js & NPM
+# 8. Node.js & NPM
 Node.js is an open-source, cross-platform runtime environment that allows developers to execute JavaScript code outside a web browser. Node.js enables server-side scripting, allowing developers to run JavaScript on the server and handle various tasks like file system operations, network requests, and database interactions.
 
 NPM (Node Package Manager) is the default package manager for Node.js. It is a command-line tool that allows developers to discover, install, and manage external libraries, frameworks, and tools needed for their Node.js projects.
@@ -276,7 +276,28 @@ To confirm Node installation, type node -v command.
 
 To confirm NPM installation, type npm -v command.
 
-![NodeJSStep8](artefacts/NodeJS/NodeJS_8.PNG)
+![NodeJSStep8](artefacts/NodeJS/NodeJS_8.png)
+
+<a name="cloneui"></a>
+# 9. Clone UI project
+
+Go to <a href="https://github.com/EndavaCollab/endava4students-ptd-23-ui">UI  project repository</a>.
+
+![CloneUIStep1](artefacts/UIProject/clone1.png)
+
+
+Click on Code button and copy link from HTTPS tab.
+
+
+![CloneUIStep2](artefacts/UIProject/clone2.png)
+
+
+Open Intellij IDEA then click on Pojects tab and then Get from VCS. Enter the copied link into URL input box and select a folder by your choice. Then click clone button.
+
+
+![CloneUIStep3](artefacts/UIProject/clone3.png)
+
+
 
 
 
