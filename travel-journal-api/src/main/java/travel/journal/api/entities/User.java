@@ -1,6 +1,9 @@
 package travel.journal.api.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "\"user\"")
@@ -22,11 +25,18 @@ public class User {
     @Column(name = "surname")
     private String surname;
 
-    public User(String email, String password, String name, String surname) {
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<TravelJournal> travelJournalList;
+
+
+    public User(int userId, String email, String password, String name, String surname, List<TravelJournal> travelJournalList) {
+        this.userId = userId;
         this.email = email;
         this.password = password;
         this.name = name;
         this.surname = surname;
+        this.travelJournalList = travelJournalList;
     }
 
     public User() {
@@ -70,5 +80,13 @@ public class User {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public List<TravelJournal> getTravelJournalList() {
+        return travelJournalList;
+    }
+
+    public void setTravelJournalList(List<TravelJournal> travelJournalList) {
+        this.travelJournalList = travelJournalList;
     }
 }
