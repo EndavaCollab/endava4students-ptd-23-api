@@ -25,8 +25,8 @@ CREATE TABLE tjdb.tjsch.travel_journal(
 	end_date 	DATE 		 NOT NULL
 );
 
---the chaneit password will be changed to the password for the new user - put between the apostrophe signs
-CREATE USER tjuser WITH PASSWORD changeit;
+--the changeit password will be changed to the password for the new user - put between the apostrophe signs
+CREATE USER tjuser WITH PASSWORD 'changeit';
 
 GRANT CONNECT ON DATABASE tjdb TO tjuser;
 ALTER SCHEMA tjsch OWNER TO tjuser;
