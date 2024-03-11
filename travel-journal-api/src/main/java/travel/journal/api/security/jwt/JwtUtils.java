@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import travel.journal.api.security.services.UserDetailsImpl;
 
 import javax.crypto.SecretKey;
+import java.time.Duration;
 import java.util.Date;
 import java.util.function.Function;
 
@@ -59,7 +60,7 @@ public class JwtUtils {
                 .claim("First_Name",userPrincipal.getFirst_name())
                 .claim("Last_Name",userPrincipal.getLast_name())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis()+1000*60))
+                .setExpiration(new Date(System.currentTimeMillis()+ Duration.ofHours(1).toMillis()))
                 .signWith(SignatureAlgorithm.HS256, jwtSecret)
                 .compact();
     }
