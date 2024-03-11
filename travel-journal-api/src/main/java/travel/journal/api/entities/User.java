@@ -19,10 +19,10 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "name")
+    @Column(name = "first_name")
     private String name;
 
-    @Column(name = "surname")
+    @Column(name = "last_name")
     private String surname;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
