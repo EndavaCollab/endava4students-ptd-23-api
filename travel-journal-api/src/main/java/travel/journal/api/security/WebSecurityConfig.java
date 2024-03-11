@@ -1,17 +1,14 @@
 package travel.journal.api.security;
 
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,21 +18,14 @@ import travel.journal.api.security.jwt.AuthEntryPointJwt;
 import travel.journal.api.security.jwt.AuthTokenFilter;
 import travel.journal.api.security.services.UserDetailsServiceImpl;
 
-
 @Configuration
 @EnableMethodSecurity
-@EnableWebSecurity
 public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
     @Autowired
-    private final UserDetailsServiceImpl userDetailsService;
+    UserDetailsServiceImpl userDetailsService;
 
     @Autowired
-    private final AuthEntryPointJwt unauthorizedHandler;
-
-    public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, AuthEntryPointJwt unauthorizedHandler) {
-        this.userDetailsService = userDetailsService;
-        this.unauthorizedHandler = unauthorizedHandler;
-    }
+    private AuthEntryPointJwt unauthorizedHandler;
 
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
@@ -63,13 +53,6 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
 //    return super.authenticationManagerBean();
 //  }
 
-
-    protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        authenticationManagerBuilder
-                .userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
-    }
-
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
@@ -96,10 +79,11 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/api/auth/signin").permitAll()
-                );
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+//                .authorizeHttpRequests(auth ->
+//                        auth.requestMatchers("/api/auth/**").permitAll()
+//                                .anyRequest().authenticated()
+//                );
 
         http.authenticationProvider(authenticationProvider());
 

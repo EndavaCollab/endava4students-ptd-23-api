@@ -1,49 +1,55 @@
 package travel.journal.api.security.services;
 
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import travel.journal.api.entity.User;
 
+import java.io.Serial;
 import java.util.Collection;
 import java.util.Objects;
 
-@Getter
-@Setter
-@NoArgsConstructor
+
 public class UserDetailsImpl implements UserDetails {
+    @Serial
     private static final long serialVersionUID = 1L;
 
-    @Getter
-    private int id;
+    private  Long id;
     @JsonIgnore
     private String username;
-
-
+    @JsonIgnore
+    private String first_name;
+    @JsonIgnore
+    private String last_name;
     @JsonIgnore
     private String password;
 
 
 
-    public UserDetailsImpl(int id, String username, String password) {
+    public UserDetailsImpl(Long id, String username,String first_name,String last_name,String password) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.first_name=first_name;
+        this.last_name=last_name;
+
     }
 
     public static UserDetailsImpl build(User user) {
 
-
         return new UserDetailsImpl(
                 user.getUser_id(),
                 user.getEmail(),
+                user.getFirst_name(),
+                user.getLast_name(),
                 user.getPassword()
                 );
+    }
+
+
+    public Long getId() {
+        return id;
     }
 
 
@@ -55,6 +61,22 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public String getPassword() {
         return password;
+    }
+
+    public String getFirst_name() {
+        return first_name;
+    }
+
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
+    }
+
+    public String getLast_name() {
+        return last_name;
+    }
+
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
     }
 
     @Override

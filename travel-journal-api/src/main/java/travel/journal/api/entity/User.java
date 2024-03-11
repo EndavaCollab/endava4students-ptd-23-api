@@ -1,10 +1,9 @@
 package travel.journal.api.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+
 
 
 @Entity
@@ -13,14 +12,15 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int user_id;
+    private Long user_id;
+    @Column(unique = true)
     private String email;
     private String first_name;
     private String last_name;
     private String password;
-
 }
 
