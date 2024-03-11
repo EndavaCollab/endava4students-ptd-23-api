@@ -12,7 +12,5 @@ public class FilesModel {
     private String title;
     private byte[] fileContent;
     private LocalDate createdDate;
-    private List<TravelJournalModel> travelJournalList;
-    private List<NotesModel> notesList;
 
 }
