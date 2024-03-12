@@ -7,6 +7,7 @@ import java.util.List;
 
 @Data
 public class NoteDetailsDTO {
+    private Integer userId;
     private Integer travelId;
     private Integer noteId;
     private List<String> travelPhotos;

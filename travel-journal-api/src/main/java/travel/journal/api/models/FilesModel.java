@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 public class FilesModel {
-    private Long fileId;
+    private int fileId;
     private String fileName;
     private String title;
     private byte[] fileContent;

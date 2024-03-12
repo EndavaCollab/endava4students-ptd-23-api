@@ -7,9 +7,10 @@ import java.util.List;
 
 @Data
 public class TravelJournalDetailsDTO {
+    private Integer userId;
     private Integer travelId;
     private String coverPhoto;
-    private String destinationName;
+    private String location;
     private LocalDate startDate;
     private LocalDate endDate;
     private Double budget;
