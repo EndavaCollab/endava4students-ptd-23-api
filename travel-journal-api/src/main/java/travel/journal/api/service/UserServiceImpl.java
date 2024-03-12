@@ -11,27 +11,36 @@ import travel.journal.api.repository.UserRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
+    private static final String EMAIL_REGEX = "^[A-Za-z0-9.%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}$";
 
     private final UserRepository userRepository;
 
     private final ModelMapper modelMapper;
     private final BCryptPasswordEncoder passwordEncoder;
 
+
     public UserServiceImpl(UserRepository userRepository, ModelMapper modelMapper, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.passwordEncoder = passwordEncoder;
+    }
+    public static boolean isValidEmail(String email) {
+        Pattern pattern = Pattern.compile(EMAIL_REGEX, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 
     @Override
     public UserDetailsDTO createUser(CreateUserDTO createUserDto) {
         User userToCreate = modelMapper.map(createUserDto, User.class);
         boolean existEmail=userRepository.existsByEmail(userToCreate.getEmail());
-        if(existEmail){
+        if(existEmail || !isValidEmail(userToCreate.getEmail())){
             return null;
         }
         String encodedPassword = passwordEncoder.encode(createUserDto.getPassword());
