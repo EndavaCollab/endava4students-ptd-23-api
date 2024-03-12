@@ -1,3 +1,7 @@
+# Sql scripts
+
+**Important!** Please make sure to run the sql scripts from `scripts_module2.sql` file located on `\travel-journal-prerequisites\sql_scripts\`
+
 # How to start the app in Docker containers
 
 **Important!** Please make sure to install `Docker Desktop` / `Rancher Desktop` application in order to be able to use `docker` and `docker-compose` commands.
@@ -5,7 +9,7 @@
 ## Compiling `travel-journal-api`
 * run command `mvn clean install` or `mvn clean package` to create the jar file (from /travel-journal-api folder).
 
-## Runnig on local
+## Running on local
 <hr/>
 
 Running the application on local requires to create a run configuration that includes the values for `db_host` and `db_pwd`, necessary to connect to the database.
@@ -15,7 +19,7 @@ When editing the configuration, add the following environment variables:
 * the password is the password you set for the user `tjuser` following the SQL scripts
 * If the `Environment variables` section is not visible, make sure to enable by clicking `Modify options` and checking `Environment variables`
 
-## Runnig on Docker 
+## Running on Docker 
 <hr/>
 
 ### Build the docker images:
