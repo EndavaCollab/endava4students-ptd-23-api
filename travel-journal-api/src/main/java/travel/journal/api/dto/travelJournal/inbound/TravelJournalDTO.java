@@ -8,7 +8,6 @@ import java.time.LocalDate;
 public class TravelJournalDTO {
     private Integer userId;
     private Integer travelId;
-    private String coverPhoto;
     private String location;
     private LocalDate startDate;
     private LocalDate endDate;
