@@ -48,6 +48,10 @@ public class UserServiceImpl implements UserService {
         User createdUser = userRepository.save(userToCreate);
         return modelMapper.map(createdUser, UserDetailsDTO.class);
     }
+    @Override
+    public Optional<User> finduserbyemail(String email) {
+        return userRepository.findByEmail(email);
+    }
 
     @Override
     public UserDetailsDTO getUser(Long id) {
@@ -56,6 +60,10 @@ public class UserServiceImpl implements UserService {
             return null;
         }
         return modelMapper.map(user, UserDetailsDTO.class);
+    }
+    @Override
+    public void saveUser(User user) {
+        userRepository.save(user);
     }
 
     @Override
@@ -81,7 +89,7 @@ public class UserServiceImpl implements UserService {
 
             return modelMapper.map(modifiedUser, UserDetailsDTO.class);
         } else {
-           return null;
+            return null;
         }
     }
 
@@ -92,7 +100,7 @@ public class UserServiceImpl implements UserService {
             userRepository.deleteById(id);
             return true;
         } else {
-          return false;
+            return false;
         }
     }
 }
