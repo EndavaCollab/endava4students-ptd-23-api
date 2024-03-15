@@ -7,7 +7,6 @@ import java.time.LocalDate;
 @Data
 public class TravelJournalDTO {
     private Integer userId;
-    private Integer travelId;
     private String location;
     private LocalDate startDate;
     private LocalDate endDate;

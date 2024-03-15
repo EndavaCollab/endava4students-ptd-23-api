@@ -1,11 +1,14 @@
 package travel.journal.api.service;
 
-import travel.journal.api.dto.UserCredentialsDTO;
+
 import travel.journal.api.dto.CreateUserDTO;
 import travel.journal.api.dto.UpdateUserDTO;
 import travel.journal.api.dto.UserDetailsDTO;
+import travel.journal.api.entities.User;
+
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
     UserDetailsDTO createUser(CreateUserDTO user);
@@ -16,7 +19,9 @@ public interface UserService {
 
     UserDetailsDTO modifyUser(Integer id, UpdateUserDTO user);
 
-    void deleteUser(Integer id);
+    boolean deleteUser(Integer id);
 
-    boolean signin(UserCredentialsDTO userCredentialsDTO);
+    Optional<User> findUserByEmail(String email);
+
+    void saveUser(User user);
 }

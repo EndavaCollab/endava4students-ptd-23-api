@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 @EnableJpaRepositories
-public interface FilesRepository extends JpaRepository<Files, Long> {
+public interface FilesRepository extends JpaRepository<Files, Integer >{
 
 }

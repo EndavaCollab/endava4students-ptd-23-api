@@ -11,7 +11,6 @@ import travel.journal.api.entities.TravelJournal;
 import travel.journal.api.exception.ResourceNotFoundException;
 import travel.journal.api.repositories.TravelJournalRepository;
 
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;

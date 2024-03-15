@@ -8,6 +8,6 @@ import java.io.IOException;
 public interface FileService {
 
     Files saveImage(MultipartFile file) throws IOException;
-    void deleteImage(long id);
-    public Files modifyImage(long id, MultipartFile file) throws IOException;
+    void deleteImage(int id);
+    public Files modifyImage(int id, MultipartFile file) throws IOException;
 }

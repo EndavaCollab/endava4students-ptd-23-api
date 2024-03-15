@@ -8,8 +8,6 @@ import java.util.List;
 @Data
 public class NoteDTO {
     private Integer userId;
-    private Integer travelId;
-    private Integer noteId;
     private List<String> coverPhotos;
     private String destinationName;
     private LocalDate date;

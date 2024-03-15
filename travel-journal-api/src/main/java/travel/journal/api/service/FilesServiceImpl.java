@@ -30,7 +30,7 @@ public class FilesServiceImpl implements FileService{
         return filesRepository.save(fileToCreate);
     }
 
-    public void deleteImage(long id){
+    public void deleteImage(int id){
        if(filesRepository.existsById(id)){
            filesRepository.deleteById(id);
        }
@@ -39,7 +39,7 @@ public class FilesServiceImpl implements FileService{
        }
     }
 
-    public Files modifyImage(long id, MultipartFile file) throws IOException {
+    public Files modifyImage(int id, MultipartFile file) throws IOException {
         Optional<Files> existingImageOptional = filesRepository.findById(id);
 
         if (existingImageOptional.isPresent()) {
