@@ -6,8 +6,9 @@ import org.springframework.stereotype.Service;
 import travel.journal.api.dto.CreateUserDTO;
 import travel.journal.api.dto.UpdateUserDTO;
 import travel.journal.api.dto.UserDetailsDTO;
-import travel.journal.api.entity.User;
-import travel.journal.api.repository.UserRepository;
+import travel.journal.api.entities.User;
+import travel.journal.api.repositories.UserRepository;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -49,12 +50,12 @@ public class UserServiceImpl implements UserService {
         return modelMapper.map(createdUser, UserDetailsDTO.class);
     }
     @Override
-    public Optional<User> finduserbyemail(String email) {
+    public Optional<User> findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
     @Override
-    public UserDetailsDTO getUser(Long id) {
+    public UserDetailsDTO getUser(Integer id) {
         User user = userRepository.findById(id).orElse(null);
         if(user==null){
             return null;
@@ -72,16 +73,15 @@ public class UserServiceImpl implements UserService {
         return users.stream().map(user -> modelMapper.map(user, UserDetailsDTO.class)).collect(Collectors.toList());
     }
 
-
-    public UserDetailsDTO modifyUser(Long id, UpdateUserDTO updateUserDTO) {
+    public UserDetailsDTO modifyUser(Integer id, UpdateUserDTO updateUserDTO) {
         Optional<User> existingUserOptional = userRepository.findById(id);
         if (existingUserOptional.isPresent()) {
             User existingUser = existingUserOptional.get();
             existingUser = User.builder()
-                    .user_id(existingUser.getUser_id())
+                    .userId(existingUser.getUserId())
                     .email(existingUser.getEmail())
-                    .first_name(updateUserDTO.getFirst_name())
-                    .last_name(updateUserDTO.getLast_name())
+                    .firstName(updateUserDTO.getFirst_name())
+                    .lastName(updateUserDTO.getLast_name())
                     .password(existingUser.getPassword())
                     .build();
 
@@ -95,7 +95,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public boolean deleteUser(Long id) {
+    public boolean deleteUser(Integer id) {
         if (userRepository.existsById(id)) {
             userRepository.deleteById(id);
             return true;

@@ -11,7 +11,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import travel.journal.api.entity.User;
+
+import travel.journal.api.entities.User;
 import travel.journal.api.payload.request.LoginRequest;
 import travel.journal.api.payload.response.JwtResponse;
 import travel.journal.api.security.jwt.JwtUtils;
@@ -19,6 +20,7 @@ import travel.journal.api.security.services.UserDetailsImpl;
 import travel.journal.api.service.UserService;
 
 import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api/auth")
@@ -37,7 +39,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-        Optional<User> existUser=userService.finduserbyemail(loginRequest.getEmail());
+        Optional<User> existUser=userService.findUserByEmail(loginRequest.getEmail());
         if(existUser.isPresent()){
             User user = existUser.get();
             if(user.getPassword().equals(loginRequest.getPassword())){

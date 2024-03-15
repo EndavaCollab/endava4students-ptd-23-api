@@ -20,7 +20,7 @@ public class UserController {
         this.userServiceImpl = userServiceImpl;
     }
 
-    @PreAuthorize("isAuthenticated()")
+
     @PostMapping("/saveuser")
     public ResponseEntity<?> createUser(@RequestBody CreateUserDTO user) {
         UserDetailsDTO newUser = userServiceImpl.createUser(user);
@@ -30,9 +30,9 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
     }
 
-    
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/userbyid/{id}")
-    public ResponseEntity<?> getUser(@PathVariable("id") Long userId) {
+    public ResponseEntity<?> getUser(@PathVariable("id") Integer userId) {
         UserDetailsDTO userDetailsDTO = userServiceImpl.getUser(userId);
         if(userDetailsDTO==null){
             return ResponseEntity.notFound().build();
@@ -48,7 +48,7 @@ public class UserController {
     }
     @PreAuthorize("isAuthenticated()")
     @PutMapping("/updateuser/{id}")
-    public ResponseEntity<?> modifyUser(@PathVariable("id") Long userId,
+    public ResponseEntity<?> modifyUser(@PathVariable("id") Integer userId,
                                                         @RequestBody UpdateUserDTO updateUserDTO) {
         UserDetailsDTO modifiedUser = userServiceImpl.modifyUser(userId, updateUserDTO);
         if(modifiedUser==null){
@@ -58,7 +58,7 @@ public class UserController {
     }
     @PreAuthorize("isAuthenticated()")
     @DeleteMapping("/deleteuser/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable("id") Long userId) {
+    public ResponseEntity<Void> deleteUser(@PathVariable("id") Integer userId) {
         boolean deleted= userServiceImpl.deleteUser(userId);
         if(deleted){
             return ResponseEntity.ok().build();

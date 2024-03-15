@@ -4,7 +4,8 @@ package travel.journal.api.service;
 import travel.journal.api.dto.CreateUserDTO;
 import travel.journal.api.dto.UpdateUserDTO;
 import travel.journal.api.dto.UserDetailsDTO;
-import travel.journal.api.entity.User;
+import travel.journal.api.entities.User;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -12,15 +13,15 @@ import java.util.Optional;
 public interface UserService {
     UserDetailsDTO createUser(CreateUserDTO user);
 
-    UserDetailsDTO getUser(Long id);
+    UserDetailsDTO getUser(Integer id);
 
     List<UserDetailsDTO> getAllUsers();
 
-    UserDetailsDTO modifyUser(Long id, UpdateUserDTO user);
+    UserDetailsDTO modifyUser(Integer id, UpdateUserDTO user);
 
-    boolean deleteUser(Long id);
+    boolean deleteUser(Integer id);
 
-    Optional<User> finduserbyemail(String email);
+    Optional<User> findUserByEmail(String email);
 
     void saveUser(User user);
 }

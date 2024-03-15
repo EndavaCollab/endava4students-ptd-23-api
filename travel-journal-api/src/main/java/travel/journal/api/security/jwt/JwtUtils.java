@@ -57,8 +57,8 @@ public class JwtUtils {
 
         return Jwts.builder()
                 .setSubject((userPrincipal.getUsername()))
-                .claim("First_Name",userPrincipal.getFirst_name())
-                .claim("Last_Name",userPrincipal.getLast_name())
+                .claim("First_Name",userPrincipal.getFirstName())
+                .claim("Last_Name",userPrincipal.getLastName())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis()+ Duration.ofHours(1).toMillis()))
                 .signWith(SignatureAlgorithm.HS256, jwtSecret)

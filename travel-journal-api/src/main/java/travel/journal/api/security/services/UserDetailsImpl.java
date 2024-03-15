@@ -2,53 +2,52 @@ package travel.journal.api.security.services;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import travel.journal.api.entity.User;
+import travel.journal.api.entities.User;
 
 import java.io.Serial;
 import java.util.Collection;
 import java.util.Objects;
 
-
+@Data
 public class UserDetailsImpl implements UserDetails {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private  Long id;
+    private  int id;
     @JsonIgnore
     private String username;
     @JsonIgnore
-    private String first_name;
+    private String firstName;
     @JsonIgnore
-    private String last_name;
+    private String lastName;
     @JsonIgnore
     private String password;
 
 
-
-    public UserDetailsImpl(Long id, String username,String first_name,String last_name,String password) {
+    public UserDetailsImpl(int id, String username, String firstName, String lastName, String password) {
         this.id = id;
         this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.password = password;
-        this.first_name=first_name;
-        this.last_name=last_name;
-
     }
 
     public static UserDetailsImpl build(User user) {
 
         return new UserDetailsImpl(
-                user.getUser_id(),
+                user.getUserId(),
                 user.getEmail(),
-                user.getFirst_name(),
-                user.getLast_name(),
+                user.getFirstName(),
+                user.getLastName(),
                 user.getPassword()
                 );
     }
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -63,20 +62,20 @@ public class UserDetailsImpl implements UserDetails {
         return password;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     @Override
