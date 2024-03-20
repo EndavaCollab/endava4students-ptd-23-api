@@ -12,4 +12,7 @@ services:
     image: travel-journal-api
     build:
       context: ./travel-journal-api
+    environment:
+        DB_PWD: ${DB_PWD}
+        DB_HOST: ${DB_HOST}
     network_mode: "host"
