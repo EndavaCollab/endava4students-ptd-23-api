@@ -15,6 +15,10 @@
 	<description>travel-journal-api</description>
 	<properties>
 		<java.version>17</java.version>
+
+		<!-- Swagger -->
+		<swagger-annotations.version>2.2.20</swagger-annotations.version>
+		<swagger-models.version>2.2.20</swagger-models.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -65,12 +69,6 @@
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<!--       <dependency>-->
-		<!--          <groupId>org.projectlombok</groupId>-->
-		<!--          <artifactId>lombok</artifactId>-->
-		<!--          <optional>true</optional>-->
-		<!--       </dependency>-->
-
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
@@ -86,13 +84,21 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>2.4.0</version>
 		</dependency>
-
+		<dependency>
+			<groupId>io.swagger.core.v3</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<version>${swagger-annotations.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.swagger.core.v3</groupId>
+			<artifactId>swagger-models</artifactId>
+			<version>${swagger-models.version}</version>
+		</dependency>
 	</dependencies>
 
 	<build>
