@@ -76,6 +76,12 @@ ON ALL TABLES IN SCHEMA tjsch_module2 TO tjuser;
 GRANT ALL
 ON ALL SEQUENCES IN SCHEMA tjsch_module2 TO tjuser;
 
+ALTER TABLE tjdb.tjsch_module2.notes_files OWNER TO tjuser;
+ALTER TABLE tjdb.tjsch_module2.notes OWNER TO tjuser;
+ALTER TABLE tjdb.tjsch_module2.travel_journal OWNER TO tjuser;
+ALTER TABLE tjdb.tjsch_module2.files OWNER TO tjuser;
+ALTER TABLE tjdb.tjsch_module2.users OWNER TO tjuser;
+
 INSERT INTO tjdb.tjsch_module2.users (email, password, first_name, last_name)
 VALUES ('baiceaclaudiuadrian@gmail.com', encode(sha256('NanerBag'::bytea), 'hex'), 'Baicea', 'Claudiu Adrian');
 INSERT INTO tjdb.tjsch_module2.users (email, password, first_name, last_name)
