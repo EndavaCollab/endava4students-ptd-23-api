@@ -3,6 +3,7 @@ package travel.journal.api.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -50,7 +51,7 @@ public class AuthController {
             return ResponseEntity.ok(new JwtResponse(jwt));
 
         }
-        return ResponseEntity.badRequest().build();
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not found");
     }
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/test")
