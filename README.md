@@ -55,5 +55,17 @@ In order to successfully start the containers, a few extra steps are necessary:
 This command will start the containers. Depending on the host, the UI can be accessed using the name or ip of the host, on port 5173<br/>
 ex: `http://localhost:5173`, `http://13.73.187.21:5173/`
 
+<hr/>
+
+### Using Windows Subsystem for Linux 2 (WSL 2)
+* Open two Linux terminals in the api project folder
+* In the first terminal run `sudo dockerd` to start the docker engine
+* In the second terminal run the two commands from the previous section (prefixed by sudo) to build and run the docker images
+#### Notes:
+* Localhost is valid as the host
+* The firewall and PostgreSQL configurations are not required
+
+<hr/>
+
 #### Note:
 If you run the containers locally and try to connect to the DB on the Endava virtual machine on Azure, be sure to check the VM Network settings to allow connections from your IP

@@ -11,6 +11,7 @@
 * [7. Postman](#postman)
 * [8. Node & NPM](#nodenpm)
 * [9. Clone UI project](#cloneui)
+* [10. (OPTIONAL) Docker](#docker)
 
 
 <a name="intellij"></a>
@@ -298,9 +299,36 @@ Open Intellij IDEA then click on Pojects tab and then Get from VCS. Enter the co
 ![CloneUIStep3](artefacts/UIProject/clone3.png)
 
 
+<a name="docker"></a>
+# 10. (OPTIONAL) Docker
 
+## Natively on Windows
 
+Go to <a href="https://www.docker.com/products/docker-desktop/">Docker</a> and run the installer with default configuration (PC restart may be required).
 
+## Using Windows Subsystem for Linux (WSL 2)
 
+Go to <a href="https://docs.docker.com/engine/install/">Docker Documentation</a> and follow the instructions for your respective distribution.
 
+### Debian/Ubuntu example
+```
+# Add Docker's official GPG key:
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
 
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+
+# Install the latest version
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin docker-compose
+```
+
+<br/>
+Verify the installation running the `--help` command for both `docker` and `docker-compose`
