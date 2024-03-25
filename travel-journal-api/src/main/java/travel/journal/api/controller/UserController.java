@@ -1,5 +1,6 @@
 package travel.journal.api.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,8 +22,8 @@ public class UserController {
     }
 
 
-    @PostMapping("/saveuser")
-    public ResponseEntity<?> createUser(@RequestBody CreateUserDTO user) {
+    @PostMapping("/register")
+    public ResponseEntity<?> createUser(@Valid @RequestBody CreateUserDTO user) {
         UserDetailsDTO newUser = userServiceImpl.createUser(user);
         if(newUser==null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -31,7 +32,7 @@ public class UserController {
     }
 
     @PreAuthorize("isAuthenticated()")
-    @GetMapping("/userbyid/{id}")
+    @GetMapping("/userById/{id}")
     public ResponseEntity<?> getUser(@PathVariable("id") Integer userId) {
         UserDetailsDTO userDetailsDTO = userServiceImpl.getUser(userId);
         if(userDetailsDTO==null){
@@ -40,16 +41,18 @@ public class UserController {
         return ResponseEntity.ok(userDetailsDTO);
     }
 
-    @GetMapping("/getallusers")
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/getAllUsers")
     public ResponseEntity<List<UserDetailsDTO>> getAllUsers() {
         List<UserDetailsDTO> users = userServiceImpl.getAllUsers();
 
         return ResponseEntity.ok(users);
     }
+
     @PreAuthorize("isAuthenticated()")
-    @PutMapping("/updateuser/{id}")
+    @PutMapping("/updateUser/{id}")
     public ResponseEntity<?> modifyUser(@PathVariable("id") Integer userId,
-                                                        @RequestBody UpdateUserDTO updateUserDTO) {
+                                                        @Valid @RequestBody UpdateUserDTO updateUserDTO) {
         UserDetailsDTO modifiedUser = userServiceImpl.modifyUser(userId, updateUserDTO);
         if(modifiedUser==null){
             return ResponseEntity.notFound().build();
@@ -57,7 +60,7 @@ public class UserController {
         return ResponseEntity.ok(modifiedUser);
     }
     @PreAuthorize("isAuthenticated()")
-    @DeleteMapping("/deleteuser/{id}")
+    @DeleteMapping("/deleteUser/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable("id") Integer userId) {
         boolean deleted= userServiceImpl.deleteUser(userId);
         if(deleted){

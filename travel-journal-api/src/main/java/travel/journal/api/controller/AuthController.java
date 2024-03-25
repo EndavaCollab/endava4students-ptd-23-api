@@ -11,7 +11,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
 import travel.journal.api.entities.User;
 import travel.journal.api.payload.request.LoginRequest;
 import travel.journal.api.payload.response.JwtResponse;
@@ -30,33 +29,28 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
     private final UserService userService;
-    private final BCryptPasswordEncoder passwordEncoder;
 
-    public AuthController(UserService userService, BCryptPasswordEncoder passwordEncoder) {
+
+    public AuthController(UserService userService) {
         this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
+
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         Optional<User> existUser=userService.findUserByEmail(loginRequest.getEmail());
         if(existUser.isPresent()){
-            User user = existUser.get();
-            if(user.getPassword().equals(loginRequest.getPassword())){
-                user.setPassword(passwordEncoder.encode(loginRequest.getPassword()));
-                userService.saveUser(user);
-            }
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String jwt = jwtUtils.generateJwtToken(authentication);
+
+            UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+            return ResponseEntity.ok(new JwtResponse(jwt));
+
         }
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtToken(authentication);
-
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-
-
-        return ResponseEntity.ok(new JwtResponse(jwt));
+        return ResponseEntity.badRequest().build();
     }
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/test")
