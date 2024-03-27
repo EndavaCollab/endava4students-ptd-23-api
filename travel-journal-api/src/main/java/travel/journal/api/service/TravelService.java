@@ -8,11 +8,13 @@ import travel.journal.api.dto.travelJournal.outbound.TravelJournalDetailsDTO;
 import java.io.IOException;
 import java.util.List;
 
-public interface TravelService  {
+public interface TravelService {
 
 
     TravelJournalDetailsDTO createTravelJournal(TravelJournalDTO travelJournal, MultipartFile file) throws IOException;
+
     TravelJournalDetailsDTO getTravelJournal(Integer id);
+
     TravelJournalDetailsDTO getTravelJournal(Integer id, Integer userId);
 
     List<TravelJournalDetailsDTO> getAllTravelJournals();

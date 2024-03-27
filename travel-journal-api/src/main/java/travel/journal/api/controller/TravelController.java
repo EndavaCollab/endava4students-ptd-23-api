@@ -36,6 +36,7 @@ public class TravelController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/travel/{id}")
     public ResponseEntity<TravelJournalDetailsDTO> getTravel(@PathVariable("id") @Positive int travelId) {
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
         Integer userId;
