@@ -63,7 +63,7 @@ public class TravelServiceImpl implements TravelService {
 
             TravelJournal existingTravel = existingTravelOptional.get();
 
-            Files modifiedImage = filesService.modifyImage(existingTravel.getTravelId(), file);
+            Files modifiedImage = filesService.modifyImage(existingTravel.getCoverPhoto().getFileId(), file);
 
             existingTravel.setHasCoverPhoto(modifiedImage.getFileContent().length > 0);
             existingTravel.setCoverPhoto(modifiedImage);

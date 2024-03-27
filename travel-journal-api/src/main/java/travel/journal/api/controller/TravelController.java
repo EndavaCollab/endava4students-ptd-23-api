@@ -1,19 +1,20 @@
 package travel.journal.api.controller;
 
 
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import travel.journal.api.dto.travelJournal.inbound.TravelJournalDTO;
 import travel.journal.api.dto.travelJournal.outbound.TravelJournalDetailsDTO;
-import travel.journal.api.service.TravelService;
+
 import travel.journal.api.service.TravelServiceImpl;
 
 import java.io.IOException;
 import java.util.List;
 
 @RestController
-
 @RequestMapping("/travel-journal")
 public class TravelController {
     private final TravelServiceImpl travelServiceImpl;
@@ -24,7 +25,7 @@ public class TravelController {
     }
 
     @PostMapping("/travel")
-    public ResponseEntity<TravelJournalDetailsDTO> createTravel(@RequestPart("travelJournalDTO") TravelJournalDTO travelJournalDTO, @RequestParam("file") MultipartFile file) throws IOException {
+    public ResponseEntity<TravelJournalDetailsDTO> createTravel(@Valid @RequestPart("travelJournalDTO") TravelJournalDTO travelJournalDTO, @RequestParam("file") MultipartFile file) throws IOException {
         TravelJournalDetailsDTO newTravel = travelServiceImpl.createTravelJournal(travelJournalDTO, file);
 
         return ResponseEntity.ok(newTravel);
@@ -51,7 +52,7 @@ public class TravelController {
     }
 
     @PutMapping("travel/{id}")
-    ResponseEntity<TravelJournalDetailsDTO> modifyTravel(@PathVariable("id") int travelId, @RequestPart TravelJournalDTO travelJournalDTO, @RequestParam("file") MultipartFile file) throws IOException {
+    ResponseEntity<TravelJournalDetailsDTO> modifyTravel(@PathVariable("id") int travelId, @Valid @RequestPart TravelJournalDTO travelJournalDTO, @RequestParam("file") MultipartFile file) throws IOException {
 
         TravelJournalDetailsDTO modifiedTravel = travelServiceImpl.modifyTravelJournal(travelId, travelJournalDTO, file);
 
