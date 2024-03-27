@@ -12,8 +12,8 @@ public interface TravelService  {
 
 
     TravelJournalDetailsDTO createTravelJournal(TravelJournalDTO travelJournal, MultipartFile file) throws IOException;
-
     TravelJournalDetailsDTO getTravelJournal(Integer id);
+    TravelJournalDetailsDTO getTravelJournal(Integer id, Integer userId);
 
     List<TravelJournalDetailsDTO> getAllTravelJournals();
 
