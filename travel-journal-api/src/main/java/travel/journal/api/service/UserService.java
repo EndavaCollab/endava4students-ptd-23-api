@@ -1,6 +1,7 @@
 package travel.journal.api.service;
 
 
+;
 import travel.journal.api.dto.CreateUserDTO;
 import travel.journal.api.dto.UpdateUserDTO;
 import travel.journal.api.dto.UserDetailsDTO;

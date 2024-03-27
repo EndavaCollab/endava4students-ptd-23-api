@@ -3,15 +3,16 @@ package travel.journal.api.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
 import travel.journal.api.entities.User;
 import travel.journal.api.payload.request.LoginRequest;
 import travel.journal.api.payload.response.JwtResponse;
@@ -30,33 +31,26 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
     private final UserService userService;
-    private final BCryptPasswordEncoder passwordEncoder;
 
-    public AuthController(UserService userService, BCryptPasswordEncoder passwordEncoder) {
+
+    public AuthController(UserService userService) {
         this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
-    }
 
+    }
+    
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-        Optional<User> existUser=userService.findUserByEmail(loginRequest.getEmail());
-        if(existUser.isPresent()){
-            User user = existUser.get();
-            if(user.getPassword().equals(loginRequest.getPassword())){
-                user.setPassword(passwordEncoder.encode(loginRequest.getPassword()));
-                userService.saveUser(user);
-            }
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String jwt = jwtUtils.generateJwtToken(authentication);
+
+            return ResponseEntity.ok(new JwtResponse(jwt));
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");
         }
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
-
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtToken(authentication);
-
-        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-
-
-        return ResponseEntity.ok(new JwtResponse(jwt));
     }
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/test")
