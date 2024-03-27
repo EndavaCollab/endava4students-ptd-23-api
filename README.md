@@ -19,6 +19,9 @@ When editing the configuration, add the following environment variables:
 * the password is the password you set for the user `tjuser` following the SQL scripts
 * If the `Environment variables` section is not visible, make sure to enable by clicking `Modify options` and checking `Environment variables`
 
+After starting the api app, the Swagger Ui can be accessed using the following URL: http://localhost:8080/swagger-ui/index.html#/
+Read more about Swagger Ui here: https://springdoc.org/#getting-started
+
 ## Running on Docker
 <hr/>
 
