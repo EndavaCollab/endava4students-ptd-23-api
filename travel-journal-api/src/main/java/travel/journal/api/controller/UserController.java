@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.*;
 import travel.journal.api.dto.CreateUserDTO;
 import travel.journal.api.dto.UpdateUserDTO;
 import travel.journal.api.dto.UserDetailsDTO;
+import travel.journal.api.entities.User;
 import travel.journal.api.service.UserServiceImpl;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/user")
