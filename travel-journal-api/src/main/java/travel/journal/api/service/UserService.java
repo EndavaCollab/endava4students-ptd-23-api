@@ -25,4 +25,5 @@ public interface UserService {
     Optional<User> findUserByEmail(String email);
 
     void saveUser(User user);
+    Optional<User> getCurrentUser();
 }

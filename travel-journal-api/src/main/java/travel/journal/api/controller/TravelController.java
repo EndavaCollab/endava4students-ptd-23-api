@@ -2,6 +2,7 @@ package travel.journal.api.controller;
 
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import travel.journal.api.dto.travelJournal.inbound.TravelJournalDTO;
@@ -58,6 +59,7 @@ public class TravelController {
         return ResponseEntity.ok(modifiedTravel);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @DeleteMapping("travel/{id}")
     ResponseEntity<Void> deleteTravel(@PathVariable("id") int travelId) {
         travelServiceImpl.deleteTravelJournal(travelId);

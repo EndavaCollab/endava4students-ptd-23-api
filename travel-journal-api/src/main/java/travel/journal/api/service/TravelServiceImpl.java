@@ -8,7 +8,9 @@ import travel.journal.api.dto.travelJournal.inbound.TravelJournalDTO;
 import travel.journal.api.dto.travelJournal.outbound.TravelJournalDetailsDTO;
 import travel.journal.api.entities.Files;
 import travel.journal.api.entities.TravelJournal;
+import travel.journal.api.entities.User;
 import travel.journal.api.exception.ResourceNotFoundException;
+import travel.journal.api.exception.UnauthorizedAccesException;
 import travel.journal.api.repositories.TravelJournalRepository;
 
 import java.io.IOException;
@@ -21,11 +23,13 @@ public class TravelServiceImpl implements TravelService {
 
     private final TravelJournalRepository travelRepository;
     private final FilesServiceImpl filesService;
+    private final UserService userService;
     private final ModelMapper modelMapper;
 
-    public TravelServiceImpl(TravelJournalRepository travelRepository, FilesServiceImpl filesService, ModelMapper modelMapper) {
+    public TravelServiceImpl(TravelJournalRepository travelRepository, FilesServiceImpl filesService, UserService userService, ModelMapper modelMapper) {
         this.travelRepository = travelRepository;
         this.filesService = filesService;
+        this.userService = userService;
         this.modelMapper = modelMapper;
     }
 
@@ -86,17 +90,30 @@ public class TravelServiceImpl implements TravelService {
 
     @Override
     public void deleteTravelJournal(Integer id) {
+        Optional<User> user = userService.getCurrentUser();
+        User checkuser = null;
+        if (user.isPresent()) {
+            checkuser = user.get();
+        }
         Optional<TravelJournal> travelOptional = travelRepository.findById(id);
         if (travelOptional.isPresent()) {
+            if (user.isPresent()) {
+                if (checkuser.equals(travelOptional.get().getUser())) {
+                    TravelJournal travelToDelete = travelOptional.get();
+                    filesService.deleteImage(travelToDelete.getCoverPhoto().getFileId());
+                    travelRepository.deleteById(id);
 
-            TravelJournal travelToDelete = travelOptional.get();
-            filesService.deleteImage(travelToDelete.getCoverPhoto().getFileId());
-            travelRepository.deleteById(id);
+                } else {
+                    throw new UnauthorizedAccesException("Current user is not authorized to delete this travel journal");
+                }
+            }
 
-        } else {
-            throw new ResourceNotFoundException("Travel with id: " + id + " does not exist");
         }
+            else{
+                    throw new ResourceNotFoundException("Travel with id: " + id + " does not exist");
+                }
     }
+
 
     @Override
     public List<TravelJournalDetailsDTO>getUserTravelJournal(int userId) {
